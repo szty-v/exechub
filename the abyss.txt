@@ -159,26 +159,30 @@ task.spawn(function()
     local hooked = false
     while true do
         if g.AB_InstaFish and not hooked then
-            hooked = true
-            local oldNamecall
-            oldNamecall = hookmetamethod(game, "__namecall", function(self, ...)
-                local args = {...}
-                if getnamecallmethod() == "InvokeServer" then
-                    if tostring(self) == "Update" then
-                        if args[2] and type(args[2]) == "table" then
-                            args[2].progress = 1
-                            if args[2].rewards then
-                                for _, reward in pairs(args[2].rewards) do
-                                    if type(reward) == "table" then
-                                        reward.progress = 1
+            if type(hookmetamethod) ~= "function" or type(getnamecallmethod) ~= "function" then
+                g.AB_InstaFish = false
+            else
+                hooked = true
+                local oldNamecall
+                oldNamecall = hookmetamethod(game, "__namecall", function(self, ...)
+                    local args = {...}
+                    if getnamecallmethod() == "InvokeServer" then
+                        if tostring(self) == "Update" then
+                            if args[2] and type(args[2]) == "table" then
+                                args[2].progress = 1
+                                if args[2].rewards then
+                                    for _, reward in pairs(args[2].rewards) do
+                                        if type(reward) == "table" then
+                                            reward.progress = 1
+                                        end
                                     end
                                 end
                             end
                         end
                     end
-                end
-                return oldNamecall(self, unpack(args))
-            end)
+                    return oldNamecall(self, unpack(args))
+                end)
+            end
         end
         task.wait(0.5)
     end
@@ -260,9 +264,11 @@ task.spawn(function()
                         local targetPos = prompt.Parent.Position
                         tweenToPosition(targetPos)
                         task.wait(0.5)
-                        pcall(function()
-                            fireproximityprompt(prompt)
-                        end)
+                        if type(fireproximityprompt) == "function" then
+                            pcall(function()
+                                fireproximityprompt(prompt)
+                            end)
+                        end
                         task.wait(0.2)
                     end
                 end
