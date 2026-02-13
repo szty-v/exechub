@@ -2,6 +2,7 @@
 +1 Skill Point Legends
 +1 Speed Bridge Building
 +1 Speed Car Tsunami Escape
++1 Speed Escape For Brainrots
 Abyss
 Aniphobia
 Ant War
@@ -25,10 +26,13 @@ Invisible Hide and Seek
 Knockout League
 Loot Hero
 Neo Tennis
+Ninja Legends
 Ping Pong
 Prison Lift Clash
 Shopping Drift at Driftmart
 Skaters of Hell
+Solo Hunters
+Star Fishing
 Surfing and Slide
 Ultimate Battlegrounds
 Unfair Flips
